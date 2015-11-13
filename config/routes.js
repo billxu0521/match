@@ -43,7 +43,7 @@ module.exports.routes = {
   'get /waiting/:gid':          'GameController.waiting',
   'get /start/:gid':            'GameController.start',
   'get /playing/:gid':          'GameController.playing',
-
+  'get /roll/:gid/:pid':        'GameController.roll',
   'get /play/:gid/:pid':        'GameController.play',
                
   '/error': {view: 'error',     locals:{title: 'Error!',       rootClass: 'index error'}}

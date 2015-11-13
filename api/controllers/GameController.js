@@ -84,6 +84,8 @@ module.exports = {
         res.locals.rootClass = 'play';
         res.locals.gid = req.param('gid');
         res.locals.pid = req.param('pid');
+        res.locals.match = game.match;
+        res.locals.count = game.count;
         res.view();
       }
     });
@@ -93,7 +95,7 @@ module.exports = {
     //console.log(req.param('gid'));
     //將對象socket加入該遊戲id的房間
     sails.sockets.join(req.socket, 'game_' + req.param('gid'));
-
+    console.log(req.param('gid'))
     //取得目前人數
     Game.findOne({id: req.param('gid')}).exec(function(err, game) {
       
@@ -109,14 +111,59 @@ module.exports = {
 
   //當建立者按下開始鍵
   'start': function(req, res) {
-    sails.sockets.broadcast('game_' + req.param('gid'), 'game_start');
+    //直接依照total人數來決定順序
+    Game.findOne({id: req.param('gid')})
+    .exec(function(err, game) {
+      var match, c, n;
+      var random = true;
+
+      while (random) {
+        match = [];
+        c = game.count;
+        n = 1;
+
+        while (c--) {
+          match[c] = n++;
+        }
+        match.sort(function() {return 0.5 - Math.random()})
+        random = false;
+        for (var i = 0; i < match.length; i++) {
+          if (i == match[i] - 1) {
+            random = true;
+            break;
+          }
+        }
+      }
+      Game.update({id: game.id}, {match: match})
+        .exec(function (er, ga) {
+          ga = ga[0];
+          sails.sockets.broadcast('game_' + req.param('gid'), 'game_start');
+        });
+    });
+
+
   },
 
   //遊戲頁的連線
   'playing': function(req, res) {
     sails.sockets.join(req.socket, 'game_' + req.param('gid'));
-    sails.sockets.broadcast('game_' + req.param('gid'), 'your_turn_2');
+    sails.sockets.broadcast('game_' + req.param('gid'), 'your_turn_1');
+  },
+
+  //遊戲頁的連線
+  'roll': function(req, res) {
+    Game.findOne({id: req.param('gid')})
+    .exec(function(err, ga) {
+      var next = Number(req.param('pid')) < ga.count ? Number(req.param('pid')) + 1 : 0;
+      sails.sockets.broadcast('game_' + req.param('gid'), 'onroll', {
+        target: ga.match[Number(req.param('pid')) -1],
+        next: next
+      });
+    });
+    
+
     //sails.sockets.broadcast('game_' + req.param('gid'), 'game_end');
   }
+  
   
 };

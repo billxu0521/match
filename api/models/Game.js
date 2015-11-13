@@ -15,6 +15,9 @@ module.exports = {
     count: {
       type: 'string',
       required: true
+    },
+    match: {
+      type: 'array'
     }
   }
   
