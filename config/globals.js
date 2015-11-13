@@ -9,7 +9,9 @@
  * http://sailsjs.org/#!/documentation/reference/sails.config/sails.config.globals.html
  */
 module.exports.globals = {
-
+  
+  appName : 'Exchange Gifts'
+  
   /****************************************************************************
   *                                                                           *
   * Expose the lodash installed in Sails core as a global variable. If this   *
