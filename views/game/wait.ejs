@@ -1,0 +1,24 @@
+<h1 class="hide">NEW GAME</h1>
+<div class="content">
+  <% if (pid != 1) { %>
+    <h2>WAITING FOR GAME START.</h2>
+  <% } else { %>
+    <h2>Share the game ID to your friends.</h2>
+  <% } %>
+  <label>GAME ID:</label>
+  <input value="<%- gid %>" class="form-control input-lg game-id" readonly>
+  <input type="hidden" value="<%- pid %>" class="p-id" readonly>
+  
+  <div class="info"><span class="total-count">1</span> people joined this game.</div>
+</div>
+
+<div class="button-group">
+  <% if (pid == 1) { %>
+  <div class="button-row">
+    <a href="#" class="btn btn-lg btn-c btn-c1 play-btn"><i class="fa fa-check"></i> START</a>
+  </div>
+  <% } %>
+  <div class="button-row">
+    <a href="/" class="btn btn-lg btn-c btn-c3"><i class="fa fa-arrow-left"></i> BACK</a>
+  </div>
+</div>
