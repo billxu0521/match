@@ -6,7 +6,10 @@
  */
  
 
-var matchColors = ['#ffab91','#c5e1a5','#ef9a9a','#ffe082','#e6ee9c','#80cbc4','#fff59d','#ef9a9a','#bcaaa4','#80deea'];
+var matchColors = ['#ffab91','#c5e1a5','#ef9a9a','#ffe082','#e6ee9c','#80cbc4','#fff59d','#ef9a9a','#bcaaa4','#80deea',
+                  '#ef5350','#7e57c2','#ec407a','#ab47bc','#26a69a','#66bb6a','#d4e157','#9ccc65','#ffee58','#ffca28',
+                  '#ffab91','#c5e1a5','#ef9a9a','#ffe082','#e6ee9c','#80cbc4','#fff59d','#ef9a9a','#bcaaa4','#80deea',
+                  '#ef5350','#7e57c2','#ec407a','#ab47bc','#26a69a','#66bb6a','#d4e157','#9ccc65','#ffee58','#ffca28'];
 
 module.exports = {
 
@@ -163,11 +166,12 @@ module.exports = {
       var pid = Number(req.param('pid'));
       // 當還有下一位時，next為下一位的編號，沒有時為0
       var next = pid < ga.count ? pid + 1 : 0;
+      var color = matchColors[pid - 1] ? matchColors[pid - 1] : '#f99'
       sails.sockets.broadcast('game_' + req.param('gid'), 'onroll', {
         self: pid,
         target: ga.match[pid - 1],
         next: next,
-        color: matchColors[pid - 1]
+        color: color
       });
     });
   }
