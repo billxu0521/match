@@ -37,16 +37,18 @@ module.exports.routes = {
   '/new':                       'GameController.new',
   '/new/:gid/:pid':             'GameController.wait',
 
-  'get /join': {view: 'join',   locals:{title: 'Join a game!', rootClass: 'join'}},
+  'get /join': {view: 'join',   locals:{title: '加入遊戲', rootClass: 'join'}},
   'post /join':                 'GameController.checkGameID',
   'get /wait/:gid/:pid':        'GameController.wait',
+  'get /play/:gid/:pid':        'GameController.play',
+  
+  /* sockets */             
   'get /waiting/:gid':          'GameController.waiting',
   'get /start/:gid':            'GameController.start',
   'get /playing/:gid':          'GameController.playing',
   'get /roll/:gid/:pid':        'GameController.roll',
-  'get /play/:gid/:pid':        'GameController.play',
-               
-  '/error': {view: 'error',     locals:{title: 'Error!',       rootClass: 'index error'}}
+
+  '/error': {view: 'error',     locals:{title: '錯誤！',       rootClass: 'index error'}}
 
   /***************************************************************************
   *                                                                          *

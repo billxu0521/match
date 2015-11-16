@@ -1,6 +1,6 @@
 $(function() {
   
-  var pid, gid;
+  var pid, gid, gave, mycolor;
 
   function init() {
     if ($('.p-id').length) pid = $('.p-id').val();
@@ -42,14 +42,206 @@ $(function() {
     });*/
     // 當被通知要轉的時候
     io.socket.on('onroll', function (msg) {
-      console.log("it's " + msg.target);
-      console.log("next is " + msg.next);
-      if (pid == msg.next) {
-        $('.roll-btn').removeClass('disabled');
+      console.log(msg);
+      var color = msg.color;
+      var oriColor = 'rgba(0,0,0,.5)';
+      var number = $('.number');
+      var finalColor = msg.target == pid ? color : oriColor;
+      number.css({backgroundColor: oriColor});
+      //五秒後再顯示按鈕
+      setTimeout(function(){
+        if (pid == msg.self) {
+          $('.target').css({
+            display: 'block',
+            background: color
+          }).text(msg.target);
+        }
+
+        if (pid == msg.next) {
+          $('.roll-btn').removeClass('disabled');
+        }
+        // 當下一位是0代表沒有下一位了
+        else if(msg.next == 0) {
+          $('.end-game-btn-row').removeClass('hide');
+          number.css({backgroundColor: mycolor});
+        }
+      }, 10000);
+
+      // 如果是當局的主人（收禮的人）圓圈顏色就換成這盤的顏色
+      if (msg.self == pid) {
+        number.css({background: color});
+      };
+
+      if (pid == msg.target) {
+        mycolor = color;
       }
-      else if(msg.next == 0) {
-        $('.end-game-btn-row').removeClass('hide'); 
-      }
+
+      // 給過禮物的人，或者是當局的主人，就不跑
+      if (msg.self == pid || gave) {
+        return;
+      };
+
+      number.delay(pid * 100)
+          .queue(function (next) {
+            $(this).css({backgroundColor: color});
+            next();
+          })
+          .delay(900)
+          .queue(function (next) {
+            $(this).css({backgroundColor: oriColor});
+            next();
+          })
+          .delay(700)
+          .queue(function (next) {
+            $(this).css({backgroundColor: color});
+            next();
+          })
+          .delay(500)
+          .queue(function (next) {
+            $(this).css({backgroundColor: oriColor});
+            next();
+          })
+          .delay(300)
+          .queue(function (next) {
+            $(this).css({backgroundColor: color});
+            next();
+          })
+          .delay(200)
+          .queue(function (next) {
+            $(this).css({backgroundColor: oriColor});
+            next();
+          })
+          .delay(100)
+          .queue(function (next) {
+            $(this).css({backgroundColor: color});
+            next();
+          })
+          .delay(80)
+          .queue(function (next) {
+            $(this).css({backgroundColor: oriColor});
+            next();
+          })
+          .delay(70)
+          .queue(function (next) {
+            $(this).css({backgroundColor: color});
+            next();
+          })
+          .delay(60)
+          .queue(function (next) {
+            $(this).css({backgroundColor: oriColor});
+            next();
+          })
+          .delay(50)
+          .queue(function (next) {
+            $(this).css({backgroundColor: color});
+            next();
+          })
+          .delay(50)
+          .queue(function (next) {
+            $(this).css({backgroundColor: oriColor});
+            next();
+          })
+          .delay(50)
+          .queue(function (next) {
+            $(this).css({backgroundColor: oriColor});
+            next();
+          })
+          .delay(50)
+          .queue(function (next) {
+            $(this).css({backgroundColor: oriColor});
+            next();
+          })
+          .delay(50)
+          .queue(function (next) {
+            $(this).css({backgroundColor: color});
+            next();
+          })
+          .delay(50)
+          .queue(function (next) {
+            $(this).css({backgroundColor: oriColor});
+            next();
+          })
+          .delay(50)
+          .queue(function (next) {
+            $(this).css({backgroundColor: color});
+            next();
+          })
+          .delay(50)
+          .queue(function (next) {
+            $(this).css({backgroundColor: oriColor});
+            next();
+          })
+          .delay(50)
+          .queue(function (next) {
+            $(this).css({backgroundColor: color});
+            next();
+          })
+          .delay(50)
+          .queue(function (next) {
+            $(this).css({backgroundColor: oriColor});
+            next();
+          })
+          .delay(50)
+          .queue(function (next) {
+            $(this).css({backgroundColor: color});
+            next();
+          })
+          .delay(50)
+          .queue(function (next) {
+            $(this).css({backgroundColor: oriColor});
+            next();
+          })
+          .delay(50)
+          .queue(function (next) {
+            $(this).css({backgroundColor: color});
+            next();
+          })
+          .delay(100)
+          .queue(function (next) {
+            $(this).css({backgroundColor: oriColor});
+            next();
+          })
+          .delay(200)
+          .queue(function (next) {
+            $(this).css({backgroundColor: color});
+            next();
+          })
+          .delay(400)
+          .queue(function (next) {
+            $(this).css({backgroundColor: oriColor});
+            next();
+          })
+          .delay(600)
+          .queue(function (next) {
+            $(this).css({backgroundColor: color});
+            next();
+          })
+          .delay(800)
+          .queue(function (next) {
+            $(this).css({backgroundColor: oriColor});
+            next();
+          })
+          .delay(1000)
+          .queue(function (next) {
+            $(this).css({backgroundColor: color});
+            next();
+          })
+          .delay(1000)
+          .queue(function (next) {
+            $(this).css({backgroundColor: oriColor});
+            next();
+          })
+          .delay(1000)
+          .queue(function (next) {
+            $(this).css({backgroundColor: finalColor});
+            gave = msg.target == pid;
+            next();
+          })
+      
+    });
+    //廣播
+    io.socket.on('game_alert', function (msg) {
+      alert(msg.text)
     });
   }
 

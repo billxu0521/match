@@ -1,24 +1,24 @@
 <h1 class="hide">NEW GAME</h1>
 <div class="content">
   <% if (pid != 1) { %>
-    <h2>WAITING FOR GAME START.</h2>
+    <h2>等待遊戲開始</h2>
   <% } else { %>
-    <h2>Share the game ID to your friends.</h2>
+    <h2>將遊戲序號告訴朋友</h2>
   <% } %>
-  <label>GAME ID:</label>
+  <label>遊戲序號：</label>
   <input value="<%- gid %>" class="form-control input-lg game-id" readonly>
   <input type="hidden" value="<%- pid %>" class="p-id" readonly>
   
-  <div class="info"><span class="total-count">1</span> people joined this game.</div>
+  <div class="info"><span class="total-count">1</span> 個人加入遊戲。</div>
 </div>
 
 <div class="button-group">
   <% if (pid == 1) { %>
   <div class="button-row">
-    <a href="#" class="btn btn-lg btn-c btn-c1 play-btn"><i class="fa fa-check"></i> START</a>
+    <a href="#" class="btn btn-lg btn-c btn-c1 play-btn"><i class="fa fa-check"></i> 到齊了，遊戲開始</a>
   </div>
   <% } %>
   <div class="button-row">
-    <a href="/" class="btn btn-lg btn-c btn-c3"><i class="fa fa-arrow-left"></i> BACK</a>
+    <a href="/" class="btn btn-lg btn-c btn-c3"><i class="fa fa-arrow-left"></i> 返回</a>
   </div>
 </div>
