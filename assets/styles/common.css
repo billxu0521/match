@@ -39,7 +39,7 @@
 }
 
 .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
-  background: #fff;
+  background: #ffc;
 }
 
 .form-control {

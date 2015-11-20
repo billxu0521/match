@@ -28,7 +28,7 @@ $(function() {
       }
     }
 
-    $('.btn').on('click', function() {
+    $('.btn:not(.play-btn)').on('click', function() {
       btnsound.play();
       $(this).addClass('disabled');
     });
@@ -57,15 +57,15 @@ $(function() {
     io.socket.on('onroll', function (msg) {
       //console.log(msg);
       var color = msg.color;
-      //var oriColor = 'rgba(0,0,0,.5)';
       var oriColor = '#fff';
+      var numberOriColor = 'rgba(0,0,0,.5)';
       var body = $('body');
       var number = $('.number');
       var finalColor = msg.target == pid ? color : oriColor;
-      //number.css({backgroundColor: oriColor});
       body.css({backgroundColor: oriColor});
-      //五秒後再顯示按鈕
+      //10秒後再顯示按鈕
       setTimeout(function() {
+        number.css({backgroundColor: numberOriColor});
         if (pid == msg.self) {
           $('.target').css({
             display: 'block',
@@ -79,7 +79,14 @@ $(function() {
         // 當下一位是0代表沒有下一位了
         else if(msg.next == 0) {
           $('.end-game-btn-row').removeClass('hide');
-          number.css({backgroundColor: mycolor});
+          body.css({backgroundColor: oriColor});
+          if (pid == msg.self2) {
+            $('.target').css({
+              display: 'block',
+              background: msg.color2
+            }).text(msg.target2);
+          }
+
         }
       }, 10000);
 
@@ -96,7 +103,6 @@ $(function() {
       if (msg.self == pid || gave) {
         return;
       };
-
 
 
       body.clearQueue().delay(pid * 100)
@@ -253,11 +259,6 @@ $(function() {
           .queue(function (next) {
             $(this).css({backgroundColor: finalColor});
             gave = msg.target == pid;
-            next();
-          })
-          .delay(2000)
-          .queue(function (next) {
-            $(this).css({backgroundColor: oriColor});
             next();
           })
       

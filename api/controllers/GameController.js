@@ -6,10 +6,11 @@
  */
  
 
-var matchColors = ['#ffab91','#c5e1a5','#ef9a9a','#ffe082','#e6ee9c','#80cbc4','#fff59d','#ef9a9a','#bcaaa4','#80deea',
-                  '#ef5350','#7e57c2','#ec407a','#ab47bc','#26a69a','#66bb6a','#d4e157','#9ccc65','#ffee58','#ffca28',
+var matchColors = ['#c29382','#edb2a2','#c2a582','#c2bd82','#dfbd88','#afc282','#82c299','#82bec2','#c282a5','#cfb3c2',
+                  '#ff5722','#ff9800','#009688','#ffc107','#8bc34a','#f44336','#3f51b5','#e91e63','#ffeb3b','#cddc39',
                   '#ffab91','#c5e1a5','#ef9a9a','#ffe082','#e6ee9c','#80cbc4','#fff59d','#ef9a9a','#bcaaa4','#80deea',
-                  '#ef5350','#7e57c2','#ec407a','#ab47bc','#26a69a','#66bb6a','#d4e157','#9ccc65','#ffee58','#ffca28'];
+                  '#ef5350','#7e57c2','#ec407a','#ab47bc','#26a69a','#66bb6a','#d4e157','#9ccc65','#ffee58','#ffca28',
+                  '#ffab91','#c5e1a5','#ef9a9a','#ffe082','#e6ee9c','#80cbc4','#fff59d','#ef9a9a','#bcaaa4','#80deea'];
 
 module.exports = {
 
@@ -118,6 +119,11 @@ module.exports = {
       var match, c, n;
       var random = true;
 
+      shuffle = function(o) {
+        for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+        return o;
+      };
+
       // 只有一人時不得開始遊戲
       if (game.count < 2) {
         sails.sockets.broadcast('game_' + req.param('gid'), 'game_alert', {text: '不夠人數歐！'});
@@ -133,7 +139,13 @@ module.exports = {
         while (c--) {
           match[c] = n++;
         }
-        match.sort(function() {return 0.5 - Math.random()})
+        /*
+        match.sort(function () {
+          return [1, -1, 0][Math.random() *3 |0];
+        });
+        */
+        match = shuffle(match);
+
         random = false;
         for (var i = 0; i < match.length; i++) {
           if (i == match[i] - 1) {
@@ -165,14 +177,24 @@ module.exports = {
     .exec(function(err, ga) {
       var pid = Number(req.param('pid'));
       // 當還有下一位時，next為下一位的編號，沒有時為0
-      var next = pid < ga.count ? pid + 1 : 0;
+      //var next = pid < ga.count ? pid + 1 : 0;
+      var next = pid < ga.count - 1 ? pid + 1 : 0;
       var color = matchColors[pid - 1] ? matchColors[pid - 1] : '#f99'
-      sails.sockets.broadcast('game_' + req.param('gid'), 'onroll', {
+
+      var rolldata = {
         self: pid,
         target: ga.match[pid - 1],
         next: next,
         color: color
-      });
+      }
+
+      if (next == 0) {
+        rolldata.self2 = pid + 1;
+        rolldata.target2 = ga.match[pid];
+        rolldata.color2 = matchColors[pid] ? matchColors[pid] : '#f99';
+      }
+
+      sails.sockets.broadcast('game_' + req.param('gid'), 'onroll', rolldata);
     });
   }
   
