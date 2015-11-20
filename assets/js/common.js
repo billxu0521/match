@@ -2,7 +2,8 @@ $(function() {
   
   var pid, gid, gave, mycolor;
   var btnsound = new Audio('/sounds/btn.mp3');
-  var rollsound = new Audio('/sounds/roll.mp3');
+  var numbersound = new Audio('/sounds/number.mp3');
+  var rollsound = new Audio('/sounds/roll' + (Math.floor(Math.random() * 4) + 1) +'.mp3');
 
   function init() {
     if ($('.p-id').length) pid = $('.p-id').val();
@@ -32,9 +33,9 @@ $(function() {
       $(this).addClass('disabled');
     });
 
-    // 測試是否開過聲音ios就可以自動播後續的聲音
+    // 按自己的號碼時出現的聲音
     $('.number').on('click', function() {
-      btnsound.play();
+      numbersound.play();
     });
   }
 
@@ -54,7 +55,7 @@ $(function() {
     });*/
     // 當被通知要轉的時候
     io.socket.on('onroll', function (msg) {
-      console.log(msg);
+      //console.log(msg);
       var color = msg.color;
       //var oriColor = 'rgba(0,0,0,.5)';
       var oriColor = '#fff';
@@ -100,187 +101,156 @@ $(function() {
 
       body.clearQueue().delay(pid * 100)
           .queue(function (next) {
-            rollfx();
             $(this).css({backgroundColor: color});
             next();
           })
           .delay(900)
           .queue(function (next) {
-            rollfx();
             $(this).css({backgroundColor: oriColor});
             next();
           })
           .delay(700)
           .queue(function (next) {
-            rollfx();
             $(this).css({backgroundColor: color});
             next();
           })
           .delay(500)
           .queue(function (next) {
-            rollfx();
             $(this).css({backgroundColor: oriColor});
             next();
           })
           .delay(300)
           .queue(function (next) {
-            rollfx();
             $(this).css({backgroundColor: color});
             next();
           })
           .delay(200)
           .queue(function (next) {
-            rollfx();
             $(this).css({backgroundColor: oriColor});
             next();
           })
           .delay(100)
           .queue(function (next) {
-            rollfx();
             $(this).css({backgroundColor: color});
             next();
           })
           .delay(80)
           .queue(function (next) {
-            rollfx();
             $(this).css({backgroundColor: oriColor});
             next();
           })
           .delay(70)
           .queue(function (next) {
-            rollfx();
             $(this).css({backgroundColor: color});
             next();
           })
           .delay(60)
           .queue(function (next) {
-            rollfx();
             $(this).css({backgroundColor: oriColor});
             next();
           })
           .delay(50)
           .queue(function (next) {
-            rollfx();
             $(this).css({backgroundColor: color});
             next();
           })
           .delay(50)
           .queue(function (next) {
-            rollfx();
             $(this).css({backgroundColor: oriColor});
             next();
           })
           .delay(50)
           .queue(function (next) {
-            rollfx();
             $(this).css({backgroundColor: oriColor});
             next();
           })
           .delay(50)
           .queue(function (next) {
-            rollfx();
             $(this).css({backgroundColor: oriColor});
             next();
           })
           .delay(50)
           .queue(function (next) {
-            rollfx();
             $(this).css({backgroundColor: color});
             next();
           })
           .delay(50)
           .queue(function (next) {
-            rollfx();
             $(this).css({backgroundColor: oriColor});
             next();
           })
           .delay(50)
           .queue(function (next) {
-            rollfx();
             $(this).css({backgroundColor: color});
             next();
           })
           .delay(50)
           .queue(function (next) {
-            rollfx();
             $(this).css({backgroundColor: oriColor});
             next();
           })
           .delay(50)
           .queue(function (next) {
-            rollfx();
             $(this).css({backgroundColor: color});
             next();
           })
           .delay(50)
           .queue(function (next) {
-            rollfx();
             $(this).css({backgroundColor: oriColor});
             next();
           })
           .delay(50)
           .queue(function (next) {
-            rollfx();
             $(this).css({backgroundColor: color});
             next();
           })
           .delay(50)
           .queue(function (next) {
-            rollfx();
             $(this).css({backgroundColor: oriColor});
             next();
           })
           .delay(50)
           .queue(function (next) {
-            rollfx();
             $(this).css({backgroundColor: color});
             next();
           })
           .delay(100)
           .queue(function (next) {
-            rollfx();
             $(this).css({backgroundColor: oriColor});
             next();
           })
           .delay(200)
           .queue(function (next) {
-            rollfx();
             $(this).css({backgroundColor: color});
             next();
           })
           .delay(400)
           .queue(function (next) {
-            rollfx();
             $(this).css({backgroundColor: oriColor});
             next();
           })
           .delay(600)
           .queue(function (next) {
-            rollfx();
             $(this).css({backgroundColor: color});
             next();
           })
           .delay(800)
           .queue(function (next) {
-            rollfx();
             $(this).css({backgroundColor: oriColor});
             next();
           })
           .delay(1000)
           .queue(function (next) {
-            rollfx();
             $(this).css({backgroundColor: color});
             next();
           })
           .delay(1000)
           .queue(function (next) {
-            rollfx();
             $(this).css({backgroundColor: oriColor});
             next();
           })
           .delay(1000)
           .queue(function (next) {
-            rollfx();
             $(this).css({backgroundColor: finalColor});
             gave = msg.target == pid;
             next();
@@ -296,11 +266,6 @@ $(function() {
     io.socket.on('game_alert', function (msg) {
       alert(msg.text)
     });
-  }
-
-
-  function rollfx() {
-    rollsound.play();
   }
 
   function getUserCount() {
@@ -319,6 +284,7 @@ $(function() {
   };
   
   function rollGame() {
+    rollsound.play();
     $('.roll-btn').addClass('disabled');
     //通知所有人開始轉
     io.socket.get('/roll/' + gid + '/' + pid);
