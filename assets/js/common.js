@@ -1,8 +1,8 @@
 $(function() {
   
   var pid, gid, gave, mycolor;
-  var btnsound = new Audio('/sounds/roll.mp3');
-  //var rollsound = new Audio('/sounds/roll.mp3');
+  var btnsound = new Audio('/sounds/btn.mp3');
+  var rollsound = new Audio('/sounds/roll.mp3');
 
   function init() {
     if ($('.p-id').length) pid = $('.p-id').val();
@@ -30,7 +30,12 @@ $(function() {
     $('.btn').on('click', function() {
       btnsound.play();
       $(this).addClass('disabled');
-    })
+    });
+
+    // 測試是否開過聲音ios就可以自動播後續的聲音
+    $('.number').on('click', function() {
+      btnsound.play();
+    });
   }
 
   function socketSetup() {
@@ -295,7 +300,6 @@ $(function() {
 
 
   function rollfx() {
-    var rollsound = new Audio('/sounds/roll.mp3');
     rollsound.play();
   }
 
