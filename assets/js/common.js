@@ -1,7 +1,7 @@
 $(function() {
   
   var pid, gid, gave, mycolor;
-  var btnsound = new Audio('/sounds/btn.mp3');
+  var btnsound = new Audio('/sounds/roll.mp3');
   //var rollsound = new Audio('/sounds/roll.mp3');
 
   function init() {
