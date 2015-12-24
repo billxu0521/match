@@ -9,7 +9,6 @@
   <meta name="keywords" content="">
   <meta name="author" content="Boggy Jang">
   <meta name="format-detection" content="telephone=no"><!--避免手機瀏覽器將數字變成電話連結-->
-
   <!-- Open Graph Tags -->
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@boggyjan">
@@ -20,61 +19,39 @@
   <meta property="og:url" content="">
   <meta property="og:site_name" content="">
   <meta property="og:image" content="">
-
   <!-- Libs CSS -->
   <link rel="stylesheet" href="/libs/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="/libs/font-awesome/4.3.0/css/font-awesome.min.css">
-  <!--<link rel="stylesheet" href="/libs/fancybox/source/jquery.fancybox.css?v=2.1.5">
-  <link rel="stylesheet" href="/libs/owl-carousel/owl.carousel.css">
-  <link rel="stylesheet" href="/libs/owl-carousel/owl.theme.css">
-  <link rel="stylesheet" href="/libs/photo-swipe/photoswipe.css">
-  <link rel="stylesheet" href="/libs/photo-swipe/default-skin/default-skin.css">-->
-
   <!-- Fonts -->
   <link href='https://fonts.googleapis.com/css?family=Sniglet:400,800' rel='stylesheet' type='text/css'>
-
   <!-- Custom CSS -->
   <link rel="stylesheet" href="/styles/common.css">
   <link rel="stylesheet" href="/styles/response.css">
-  <link rel="stylesheet" href="/styles/backend.css"><!--後端若有CSS需要加，請放這隻檔案-->
-
   <!-- Analytics -->
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    ga('create', 'UA-49395009-1', 'auto');
+    ga('create', 'UA-71719088-1', 'auto');
     ga('send', 'pageview');
   </script>
 </head>
 <body class="<%- rootClass %>">
   <div class="wrapper">
-
     <%- include common/header.ejs %>
-    
     <!--Main content begin-->
     <div class="main">
       <%- body %>
     </div>
     <!--Main content end-->
-
     <%- include common/footer.ejs %>
-
   </div>
   <!--Libs JS-->
   <script src="/libs/jquery-1.11.3/jquery-1.11.3.min.js"></script>
   <script src="/libs/bootstrap/js/bootstrap.min.js"></script>
-  <!--<script src="assets/libs/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
-  <script src="assets/libs/jquery-validation-1.14.0/dist/localization/messages_zh_TW.min.js"></script>
-  <script src="assets/libs/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  <script src="assets/libs/owl-carousel/owl.carousel.min.js"></script>
-  <script src="assets/libs/dk-tw-citySelector/dk-tw-citySelector.min.js"></script>
-  <script src="assets/libs/photo-swipe/photoswipe.min.js"></script>
-  <script src="assets/libs/photo-swipe/photoswipe-ui-default.min.js"></script>-->
   <!--Costom JS-->
   <script src="/js/dependencies/sails.io.js"></script>
   <script src="/js/common.js"></script>
-  <script src="/js/backend.js"></script><!--後端若有JS需要加，請放這隻檔案-->
 </body>
 </html>
