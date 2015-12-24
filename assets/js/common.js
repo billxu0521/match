@@ -47,7 +47,8 @@ $(function() {
     });
     //當遊戲開始
     io.socket.on('game_start', function (msg) {
-      location.href = '/play/' + gid + '/' + pid;
+      //console.log(msg, msg[parseInt(pid)-1])
+      location.href = '/play/' + gid + '/' + msg[parseInt(pid)-1];
     });
     //當遊戲結束
     /*io.socket.on('game_end', function (msg) {

@@ -116,7 +116,7 @@ module.exports = {
     //直接依照total人數來決定順序
     Game.findOne({id: req.param('gid')})
     .exec(function(err, game) {
-      var match, c, n;
+      var index, match, c, n;
       var random = true;
 
       shuffle = function(o) {
@@ -129,6 +129,17 @@ module.exports = {
         sails.sockets.broadcast('game_' + req.param('gid'), 'game_alert', {text: '不夠人數歐！'});
         return;
       }
+
+      // 重新排序順序
+      index = [];
+      c = game.count;
+      n = 1;
+
+      while (c--) {
+        index[c] = n++;
+      }
+      index = shuffle(index);
+      console.log(index)
 
       // 製作配對資料，將相當於人數的數字push進一個array，然後隨機打亂，然後再檢查是否會抽到自己。直到沒有重複時即為配對資料
       while (random) {
@@ -145,7 +156,6 @@ module.exports = {
         });
         */
         match = shuffle(match);
-
         random = false;
         for (var i = 0; i < match.length; i++) {
           if (i == match[i] - 1) {
@@ -158,7 +168,7 @@ module.exports = {
       Game.update({id: game.id}, {match: match})
         .exec(function (er, ga) {
           ga = ga[0];
-          sails.sockets.broadcast('game_' + req.param('gid'), 'game_start');
+          sails.sockets.broadcast('game_' + req.param('gid'), 'game_start', index);
         });
     });
 
