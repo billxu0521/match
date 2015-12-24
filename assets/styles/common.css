@@ -178,6 +178,7 @@ header {
 
 .target {
   display: none;
+
   position: relative;
   top: -140px;
   right: -50px;
@@ -192,3 +193,20 @@ header {
   color: #fff;
   box-shadow: -4px 4px 0 rgba(0,0,0,.2);
 }
+
+@-webkit-keyframes zoom {
+  0%   { -webkit-transform: scale(0); }
+  50%  { -webkit-transform: scale(2); }
+  100% { -webkit-transform: scale(1); }
+}
+@keyframes zoom {
+  0%   { transform: scale(0); }
+  50%  { transform: scale(2); }
+  100% { transform: scale(1); }
+}
+
+.target.zoom {
+  animation: zoom .5s;
+  -webkit-animation: zoom .5s;
+}
+

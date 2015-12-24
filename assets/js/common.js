@@ -71,7 +71,7 @@ $(function() {
           $('.target').css({
             display: 'block',
             background: color
-          }).text(msg.target);
+          }).addClass('zoom').text(msg.target);
         }
 
         if (pid == msg.next) {
@@ -80,12 +80,16 @@ $(function() {
         // 當下一位是0代表沒有下一位了
         else if(msg.next == 0) {
           $('.end-game-btn-row').removeClass('hide');
+
+          // 遊戲結束後 將自己的號碼顏色設為與target相同
+          $('.number').css({backgroundColor: mycolor});
           body.css({backgroundColor: oriColor});
+
           if (pid == msg.self2) {
             $('.target').css({
               display: 'block',
               background: msg.color2
-            }).text(msg.target2);
+            }).text(msg.target2).addClass('zoom');
           }
 
         }
@@ -98,6 +102,9 @@ $(function() {
 
       if (pid == msg.target) {
         mycolor = color;
+      }
+      else if (pid == msg.target2) {
+        mycolor = msg.color2;
       }
 
       // 給過禮物的人，或者是當局的主人，就不跑

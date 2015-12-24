@@ -6,9 +6,9 @@
  */
  
 
-var matchColors = ['#c29382','#edb2a2','#c2a582','#c2bd82','#dfbd88','#afc282','#82c299','#82bec2','#c282a5','#cfb3c2',
+var matchColors = ['#ffab91','#c5e1a5','#ef9a9a','#ffe082','#e6ee9c','#80cbc4','#fff59d','#ef9a9a','#bcaaa4','#80deea','#c29382','#edb2a2','#c2a582','#c2bd82','#dfbd88','#afc282','#82c299','#82bec2','#c282a5','#cfb3c2',
                   '#ff5722','#ff9800','#009688','#ffc107','#8bc34a','#f44336','#3f51b5','#e91e63','#ffeb3b','#cddc39',
-                  '#ffab91','#c5e1a5','#ef9a9a','#ffe082','#e6ee9c','#80cbc4','#fff59d','#ef9a9a','#bcaaa4','#80deea',
+                  
                   '#ef5350','#7e57c2','#ec407a','#ab47bc','#26a69a','#66bb6a','#d4e157','#9ccc65','#ffee58','#ffca28',
                   '#ffab91','#c5e1a5','#ef9a9a','#ffe082','#e6ee9c','#80cbc4','#fff59d','#ef9a9a','#bcaaa4','#80deea'];
 
@@ -139,7 +139,7 @@ module.exports = {
         index[c] = n++;
       }
       index = shuffle(index);
-      console.log(index)
+      //console.log(index)
 
       // 製作配對資料，將相當於人數的數字push進一個array，然後隨機打亂，然後再檢查是否會抽到自己。直到沒有重複時即為配對資料
       while (random) {
